@@ -1,0 +1,36 @@
+{
+  "nodes": [
+    {
+      "ID": "1",
+      "Text": "Dokumente",
+      "ParentID": "",
+      "Type": "O",
+      "UploadDokumente" : "",
+      "FileUploader" :"FileUploader"
+    },
+    {
+      "ID": "2",
+      "Text": "Dokumente 1",
+      "ParentID": "1",
+      "Type": "O",
+      "UploadDokumente" :"",
+      "FileUploader" :"FileUploader"
+    },
+    {
+      "ID": "3",
+      "Text": "Web",
+      "ParentID": "",
+      "Type": "S",
+      "UploadDokumente" :"",
+      "FileUploader" :"FileUploader"
+    },
+    {
+      "ID": "4",
+      "Text": "Web - Dokumente 1",
+      "ParentID": "3",
+      "Type": "S",
+      "UploadDokumente" :"",
+      "FileUploader" :"FileUploader"
+    }
+  ]
+}

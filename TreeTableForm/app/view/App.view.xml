@@ -1,0 +1,111 @@
+<mvc:View 
+    xmlns="sap.m" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:table="sap.ui.table"
+    xmlns:u="sap.ui.unified"
+    controllerName="sap.ui.demo.db.controller.App">
+	<Panel headerText="{i18n>Drag and Drop UI5 JoinApps}" class="sapUiResponsiveMargin" width="auto">
+		<content>
+			<Label text="{i18n>firstName}" class="sapUiSmallMargin" />
+			<Input value="{/firstName}" valueLiveUpdate="true" width="200px" enabled="{/enabled}" />
+			<Label text="{i18n>lastName}" class="sapUiSmallMargin" />
+			<Input value="{/lastName}" valueLiveUpdate="true" width="200px" enabled="{/enabled}" />
+			<CheckBox selected="{/enabled}" text="Enabled" />
+		</content>
+	</Panel>
+	<Panel headerText="{i18n>Drag and Drop UI5 JoinApps}" class="sapUiResponsiveMargin"
+		width="auto">
+		<content>
+			<l:HorizontalLayout>
+				<l:VerticalLayout>
+					<Label class="sapUiSmallMargin" text="{i18n>address}:" />
+					<Text class="sapUiSmallMarginBegin sapUiSmallMarginBottom" text="{/address/street}\n{/address/zip} {/address/city}\n{/address/country}" width="200px" />
+					<Link class="sapUiSmallMarginBegin"
+						  href="{
+								parts: [
+									'/firstName',
+									'/lastName'
+								],
+								formatter: '.formatMail'
+							}"
+						  text="{i18n>Send Email to Marco}"/>
+				</l:VerticalLayout>
+				<l:VerticalLayout>
+					<Label text="{i18n>To Page}:" class="sapUiSmallMargin" />
+					<Input width="200px" enabled="{/enabled}" description="{/currencyCode}"
+						   value="{ parts: [{path: '/salesToDate'}, {path: '/currencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false } }"/>
+				</l:VerticalLayout>
+			</l:HorizontalLayout>
+		</content>
+	</Panel>
+	<Panel headerText="{i18n>Drag and Drop UI5 JoinApps}" class="sapUiResponsiveMargin" width="auto">
+	    <content>
+	        <l:HorizontalLayout>
+	        	
+            <table:TreeTable
+                    id="TreeTableBasic"
+                    rows="{path:'nodeModel>nodeRoot', parameters: {arrayNames:['children']}}"
+                    selectionMode="Single"
+                    enableSelectAll="false"
+                    ariaLabelledBy="title">
+                <table:toolbar>
+                    <Toolbar height="40px">
+                        <Title id="title" text="Documents"/>
+                        <ToolbarSpacer/>
+                        <Button text="Collapse all" press="onCollapseAll"/>
+                        <Button text="Expand 2 levels" press="onExpandFirstLevel"/>
+                    </Toolbar>
+                </table:toolbar>
+                <table:columns>
+                    <table:Column width="13rem">
+                        <Label text="Verknüpfte Objekte"/>
+                        <table:template>
+                            <Text text="{nodeModel>text}"/>
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="11rem">
+                        <Label text="Elementart"/>
+                        <table:template>
+                            <Text text="{nodeModel>text}" />
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="45rem">
+                        <Label text="Upload Action"></Label>
+                        <table:template>
+                            <l:HorizontalLayout>
+                        		<u:FileUploader
+                        			id="myFileUpload"
+                        			name="myFileUploader"
+                        			uploadUrl="/uploads"
+                        			visible="{= !!${nodeModel>text}}"
+                        			width="60px"
+                        			iconFirst="true"
+                        			iconOnly="true"
+                        			buttonOnly="true"
+                        			icon="images/upload.png"
+                        			useMultipart="false"
+                        			multiple="false"
+                        			uploadOnChange="false"
+                        			sendXHR="true"
+                        			fileType="pdf"
+                        			tooltip="Select File to upload"
+                        			uploadComplete="handleUploadComplete" 
+                        			change="handleValueChange"
+                        			value="file"
+                        			class="file-uploader-hidden"/>
+                        		<Button
+                        			text="Upload File"
+                        			press="handleUploadPress"
+                        			visible="{= !!${nodeModel>text}}"/>
+                        	</l:HorizontalLayout>
+                    	</table:template>
+                    </table:Column>
+                </table:columns>
+            </table:TreeTable>
+            
+	        </l:HorizontalLayout>
+	    </content>
+	</Panel>
+</mvc:View>
